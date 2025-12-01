@@ -55,19 +55,23 @@ The platform supports four distinct user roles:
 | :--- | :--- | :--- | :--- |
 | **Search & Filter** | ✅ Yes | ✅ Yes | ✅ Yes |
 | **View Photos & Price** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **View Seller Phone Number** | ❌ **No** (Must Login) | ✅ Yes | ✅ Yes |
+| **View Seller Phone Number** | ✅ Yes | ✅ Yes | ✅ Yes |
 | **Post Ads** | ❌ No | ✅ Yes (Cars & Motos) | ✅ Yes (Unlimited) |
-| **Verification Level** | None | **Level 1:** SMS OTP | **Level 2:** SMS OTP + **RC Upload** |
+| **Verification Level** | None | **Level 1:** SMS OTP (Required for posting ads) | **Level 2:** SMS OTP + **RC Upload** |
 
 ### 2.3 Detailed Onboarding Flows
 
 * **Guest Experience:**
     * Can view the full list of cars and motorcycles.
-    * When clicking "Call" or "Show Number," a popup appears: *"Please log in or sign up to view contact details."*
+    * Can view seller phone numbers directly.
+    * Can call sellers or contact them without logging in.
 
 * **Private User (Particulier):**
-    * **Signup:** Requires First Name, Last Name, Phone Number, Wilaya, Commune, **other info??**.
-    * **Verification:** One-Time Password (OTP) sent via SMS to the provided Algerian mobile number (+213).
+    * **Initial Signup:** Requires only First Name, Last Name, Wilaya, Commune. Phone number verification is NOT required for browsing or account creation.
+    * **Verification Trigger:** When user attempts to post their first ad, they are prompted to provide phone number and complete SMS OTP verification.
+    * **Account States:** 
+        - **Unverified:** Can browse, view listings, save favorites (no posting allowed)
+        - **Verified:** Can post ads (up to 2 active listings)
 
 * **Professional Dealer (Showroom):**
     * **Signup:** Requires First/lastname of business owner, Business Name, Address (Wilaya/Commune), Phone Number.
@@ -78,11 +82,12 @@ The platform supports four distinct user roles:
 
 | ID | User Story | Priority | Acceptance Criteria |
 | :--- | :--- | :--- | :--- |
-| **US-01** | As a **guest**, I want to **browse car listings**, so I can **see what's available before signing up**. | 🔴 P0 | 1. Guest can view all listings.<br>2. Guest cannot see seller phone numbers.<br>3. Login prompt appears when trying to contact seller. |
-| **US-02** | As a **private user**, I want to **post a car for sale**, so I can **find a buyer for my vehicle**. | 🔴 P0 | 1. User can post up to 2 active listings.<br>2. Minimum 5 photos required.<br>3. Price is mandatory. |
+| **US-01** | As a **guest**, I want to **browse car listings**, so I can **see what's available before signing up**. | 🔴 P0 | 1. Guest can view all listings.<br>2. Guest can view seller phone numbers.<br>3. Guest can contact sellers directly without logging in. |
+| **US-02** | As a **private user**, I want to **post a car for sale**, so I can **find a buyer for my vehicle**. | 🔴 P0 | 1. User can post up to 2 active listings.<br>2. Minimum 5 photos required.<br>3. Price is mandatory.<br>4. **Phone number verification required before posting first ad.** |
 | **US-03** | As a **professional dealer**, I want to **post unlimited listings**, so I can **showcase my entire inventory**. | 🔴 P0 | 1. Pro status verified via RC upload.<br>2. No listing limit.<br>3. Pro badge displayed on listings. |
 | **US-04** | As a **buyer**, I want to **filter cars by make, model, and price**, so I can **find exactly what I'm looking for**. | 🔴 P0 | 1. Filters work correctly.<br>2. Results update in real-time.<br>3. Zero results message shown when no matches. |
 | **US-05** | As a **user**, I want to **save listings to favorites**, so I can **compare them later**. | 🟡 P1 | 1. Heart icon adds to favorites.<br>2. Favorites accessible from profile.<br>3. Favorites persist across sessions. |
+| **US-06** | As an **unverified private user**, I want to **browse listings without phone verification**, so I can **explore the platform before committing**. | 🔴 P0 | 1. User can create account with just name and location.<br>2. User can browse all listings.<br>3. User can save favorites.<br>4. User can view seller phone numbers.<br>5. **User is prompted for phone verification only when attempting to post an ad.** |
 
 ---
 
@@ -92,8 +97,8 @@ The platform supports four distinct user roles:
 * **Transaction Types:** Selling (Vente), Exchange (Echange/Tabraz).
 * **Listing Types:** "I am selling" & "I am looking for" (Je cherche).
 * **Users:** Private Individuals & Professional Dealerships.
-* User registration with SMS OTP verification.
-* Professional dealer verification via RC upload.
+* User registration with SMS OTP verification (required for posting ads)
+* Professional dealer verification via RC upload
 * Guided photo upload with minimum 5 photos.
 * Search and filter functionality.
 * Favorites/saved listings.
@@ -121,8 +126,9 @@ The platform supports four distinct user roles:
 
 **4.1.1 General Logic**
 * **User Access:** Only logged-in users (Private & Pro) can access the "Sell" button.
+* **Private User Verification:** Unverified private users can browse the sell flow but will be prompted to complete phone verification before publishing their first ad.
 * **Listing Limit:**
-    * Private: Max 2 active listings.
+    * Private: Max 2 active listings (after verification).
     * Pro: Unlimited.
 * **Category Selection:** User must choose between **Car (Voiture)** or **Motorcycle (Moto)** immediately.
 
@@ -269,7 +275,7 @@ The platform supports four distinct user roles:
 2.  Tap Search Bar → Navigate to Detailed Search Page
 3.  Apply Filters → View Results Grid
 4.  Tap Listing → View Ad Details Screen
-5.  Tap "Call" → (If logged in) View Phone Number / (If guest) Login Prompt
+5.  Tap "Call" → View Phone Number (Available to all users including guests)
 
 **Selling Flow:**
 1.  Home Screen → Tap "Sell" Button
@@ -281,10 +287,11 @@ The platform supports four distinct user roles:
 7.  Review & Publish
 
 **Onboarding Flow (Private User):**
-1.  Tap "Sign Up" → Enter Phone Number
-2.  Receive SMS OTP → Enter Code
-3.  Complete Profile (Name, Wilaya, Commune)
-4.  Account Active
+1.  Tap "Sign Up" → Enter Name, Wilaya, Commune
+2.  Account Active (Unverified State)
+3.  User can browse listings, save favorites
+4.  (When attempting to post ad) → Phone Number Entry + SMS OTP
+5.  Account Verified → Can post ads
 
 **Onboarding Flow (Professional Dealer):**
 1.  Tap "Sign Up as Pro"
@@ -312,9 +319,9 @@ The platform supports four distinct user roles:
 * Image compression optimized for low-bandwidth connections.
 
 ### 6.2 Security & Compliance
-* **Auth:** SMS OTP verification for all users (+213 phone numbers).
+* **Auth:** SMS OTP verification required for posting ads (+213 phone numbers). Phone verification NOT required for browsing or account creation.
 * **Permissions:** Only `Admin` role can approve Pro dealer accounts.
-* **Data:** User phone numbers hidden from guests.
+* **Data:** User phone numbers visible to all users including guests.
 * **Image Protection:** Auto213 watermark on all uploaded images.
 
 ### 6.3 Platform Support
@@ -366,7 +373,7 @@ The platform supports four distinct user roles:
 ### 9.2 Open Questions (Q&A)
 | Question | Assignee | Answer |
 | :--- | :--- | :--- |
-| What additional info is needed for Private User signup? | @PM | *Pending* |
+| What additional info is needed for Private User signup? | @PM | **RESOLVED:** Only Name, Wilaya, Commune required. Phone verification deferred until ad posting. |
 | Should Color field be a dropdown with predefined options? | @Design | *Pending* |
 | Is Location (Wilaya/Commune) required or optional? | @PM | *Pending* |
 | Should image compression be automatic or user-controlled? | @Tech | *Pending* |
