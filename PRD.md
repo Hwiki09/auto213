@@ -56,7 +56,7 @@ The platform supports four distinct user roles:
 | **Search & Filter** | ✅ Yes | ✅ Yes | ✅ Yes |
 | **View Photos & Price** | ✅ Yes | ✅ Yes | ✅ Yes |
 | **View Seller Phone Number** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Post Ads** | ❌ No | ✅ Yes (Cars & Motos) | ✅ Yes (Unlimited) |
+| **Post Ads** | ❌ No | ✅ Yes (Unlimited) | ✅ Yes (Unlimited) |
 | **Verification Level** | None | **Level 1:** SMS OTP (Required for posting ads) | **Level 2:** SMS OTP + **RC Upload** |
 
 ### 2.3 Detailed Onboarding Flows
@@ -71,7 +71,7 @@ The platform supports four distinct user roles:
     * **Verification Trigger:** When user attempts to post their first ad, they are prompted to provide phone number and complete SMS OTP verification.
     * **Account States:** 
         - **Unverified:** Can browse, view listings, save favorites (no posting allowed)
-        - **Verified:** Can post ads (up to 2 active listings)
+        - **Verified:** Can post ads (Unlimited)
 
 * **Professional Dealer (Showroom):**
     * **Signup:** Requires First/lastname of business owner, Business Name, Address (Wilaya/Commune), Phone Number.
@@ -83,7 +83,7 @@ The platform supports four distinct user roles:
 | ID | User Story | Priority | Acceptance Criteria |
 | :--- | :--- | :--- | :--- |
 | **US-01** | As a **guest**, I want to **browse car listings**, so I can **see what's available before signing up**. | 🔴 P0 | 1. Guest can view all listings.<br>2. Guest can view seller phone numbers.<br>3. Guest can contact sellers directly without logging in. |
-| **US-02** | As a **private user**, I want to **post a car for sale**, so I can **find a buyer for my vehicle**. | 🔴 P0 | 1. User can post up to 2 active listings.<br>2. Minimum 5 photos required.<br>3. Price is mandatory.<br>4. **Phone number verification required before posting first ad.** |
+| **US-02** | As a **private user**, I want to **post a car for sale**, so I can **find a buyer for my vehicle**. | 🔴 P0 | 1. User can post unlimited active listings.<br>2. Minimum 5 photos required.<br>3. Price is mandatory.<br>4. **Phone number verification required before posting first ad.** |
 | **US-03** | As a **professional dealer**, I want to **post unlimited listings**, so I can **showcase my entire inventory**. | 🔴 P0 | 1. Pro status verified via RC upload.<br>2. No listing limit.<br>3. Pro badge displayed on listings. |
 | **US-04** | As a **buyer**, I want to **filter cars by make, model, and price**, so I can **find exactly what I'm looking for**. | 🔴 P0 | 1. Filters work correctly.<br>2. Results update in real-time.<br>3. Zero results message shown when no matches. |
 | **US-05** | As a **user**, I want to **save listings to favorites**, so I can **compare them later**. | 🟡 P1 | 1. Heart icon adds to favorites.<br>2. Favorites accessible from profile.<br>3. Favorites persist across sessions. |
@@ -143,7 +143,7 @@ The platform supports four distinct user roles:
 * **User Access:** Only logged-in users (Private & Pro) can access the "Sell" button.
 * **Private User Verification:** Unverified private users can browse the sell flow but will be prompted to complete phone verification before publishing their first ad.
 * **Listing Limit:**
-    * Private: Max 2 active listings (after verification).
+    * Private: Unlimited active listings (after verification).
     * Pro: Unlimited.
 * **Category Selection:** User must choose between **Car (Voiture)** or **Motorcycle (Moto)** immediately.
 
@@ -208,7 +208,7 @@ The platform supports four distinct user roles:
 * **Network Error:** If API fails, show "Please try again later" (Error code 500).
 * **Offline:** If user is offline, disable the submit button.
 * **Duplicate Action:** If user clicks button twice rapidly, prevent second request (debounce).
-* **Listing Limit Reached:** Private user attempting to post 3rd listing sees: "You have reached your listing limit. Upgrade to Pro for unlimited listings."
+
 
 ---
 
