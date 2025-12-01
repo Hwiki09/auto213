@@ -283,6 +283,32 @@ The platform supports four distinct user roles:
     * **Member Since:** Date joined.
     * **Link:** "View all ads from this seller."
 
+### 4.4 Feature Set: Ad Interactions
+
+**4.4.1 Favorite Ads**
+* **Action:** Users can mark any listing as a "Favorite" by tapping the heart icon.
+* **State:** The icon toggles between empty (not favorite) and filled (favorite).
+* **Persistence:**
+    * **Logged-in Users:** Favorites are synced to the backend and persist across devices.
+    * **Guest Users:** Favorites are stored locally on the device (Local Storage).
+* **Access:** A dedicated "Favorites" page/tab allows users to view all their saved listings.
+
+**4.4.2 Share Ads**
+* **Action:** Users can share a listing via a "Share" button on the Ad Details page.
+* **Mechanism:** Uses the native OS share sheet (Mobile) or copies link/opens modal (Web).
+* **Shared Content:**
+    * **Link:** Direct URL to the ad.
+    * **Preview:** Should include Ad Title, Price, and Main Photo (Open Graph tags required).
+    * **Pre-filled Text:** e.g., "Check out this [Year] [Make] [Model] on Auto213: [Link]"
+
+**4.4.3 Report Ads**
+* **Action:** Users can report a problem with an ad.
+* **Options:** Users will be shown a list of options to specify what is wrong:
+    * Misleading
+    * Bad photos
+    * Phone number doesn't work
+    * Other
+
 ---
 
 ## 5. User Experience (UX/UI)
