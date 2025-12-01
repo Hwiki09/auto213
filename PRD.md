@@ -122,9 +122,24 @@ The platform supports four distinct user roles:
 
 ## 4. Functional Requirements
 
-### 4.1 Feature Set: Create Listing (Selling Flow)
+### 4.1 Feature Set: Authentication & Onboarding
 
-**4.1.1 General Logic**
+**4.1.1 Login & Sign Up**
+* **Sign In Options:**
+    * **Social Login:** Users can sign in using **Google** or **Apple**.
+    * **Skip Sign In:** Users can choose to "Skip" the login process and browse as a Guest.
+
+**4.1.2 Onboarding Flow**
+* **Account Type Selection:**
+    * If the user chooses to create an account, they must select their account type:
+        1.  **Personal Account (Particulier):** For individual sellers.
+        2.  **Business Account (Professionnel):** For car dealerships and showrooms.
+* **Location Details:**
+    * Users are required to provide their **Wilaya** and **Commune** during the onboarding process.
+
+### 4.2 Feature Set: Create Listing (Selling Flow)
+
+**4.2.1 General Logic**
 * **User Access:** Only logged-in users (Private & Pro) can access the "Sell" button.
 * **Private User Verification:** Unverified private users can browse the sell flow but will be prompted to complete phone verification before publishing their first ad.
 * **Listing Limit:**
@@ -132,7 +147,7 @@ The platform supports four distinct user roles:
     * Pro: Unlimited.
 * **Category Selection:** User must choose between **Car (Voiture)** or **Motorcycle (Moto)** immediately.
 
-**4.1.2 Vehicle Details - Common Fields (Required)**
+**4.2.2 Vehicle Details - Common Fields (Required)**
 * **Brand (Marque):** Dropdown.
 * **Model (Modèle):** Dropdown (Dependent on Brand).
 * **Year (Année):** Dropdown (1980–Current).
@@ -143,24 +158,24 @@ The platform supports four distinct user roles:
     * Selling (Vente).
     * Exchange (Accepte l'échange/Tabraz) - *Toggle Switch*.
 
-**4.1.3 Car Specifics**
+**4.2.3 Car Specifics**
 * **Fuel (Energie):** Essence, Diesel, GPL (Sirghaz), Hybrid, Electric.
 * **Transmission (Boite):** Manuelle, Automatique.
 * **Mileage (Km):** Number input.
 * **Papers:** Carte Grise, Licence (Moudjahid), Carte Jaune.
 * **Bodywork (Sbigha):** Input to declare the paint/accident condition of the vehicle.
 
-**4.1.4 Motorcycle Specifics**
+**4.2.4 Motorcycle Specifics**
 * *Note: Specific technical filters (Cylinder, Type) are TBD. For MVP, use standard Description and Model fields.*
 
-**4.1.5 Pricing & Negotiation (Mandatory)**
+**4.2.5 Pricing & Negotiation (Mandatory)**
 * **Validation:** The price field is **Mandatory**. Listings without a price cannot be published. "Price on Request" is **disabled**.
 * **Price Types:**
     1.  **Fixed Price:** The seller wants exactly this amount.
     2.  **Negotiable:** The seller sets a starting price but is open to negotiation.
     3.  **Offered (Atawli):** The seller enters the highest offer received so far (e.g., "Atawli 120M").
 
-**4.1.6 Media Upload & Processing (The "Pro" Standard)**
+**4.2.6 Media Upload & Processing (The "Pro" Standard)**
 
 * **Guided Camera Flow (Mandatory):**
     * The user cannot just upload random photos. They must follow a step-by-step wizard.
@@ -177,11 +192,16 @@ The platform supports four distinct user roles:
     * If the user tries to upload fewer than 5 photos, the "Post Ad" button remains disabled. ???
 
 * **Post-Processing (Backend):**
-    * **Watermarking:** The system automatically overlays the **Auto213** logo (semi-transparent) on the center or corner of every image to prevent theft by other pages.
+    * **Watermarking:** (Not in MVP) The system automatically overlays the **Auto213** logo (semi-transparent) on the center or corner of every image to prevent theft by other pages. *Note: This feature is deferred to Phase 2.*
     * **Standardization:**
         * **Dimensions:** All images are resized to a standard aspect ratio (e.g., 4:3) to ensure a clean grid on the home feed.
         * **Compression:** Images are compressed to reduce load times for Algerian 4G networks.
         * **AI:** Enhancing the photos ???
+
+**4.2.7 Draft Listings**
+* **Save as Draft:** Users can save their listing progress at any stage before publishing.
+* **Resume:** Users can access their drafts from their profile/dashboard and resume editing where they left off.
+* **Auto-Save:** (Optional) The system periodically auto-saves the listing progress.
 
 **Corner Cases / Edge Cases:**
 * **Network Error:** If API fails, show "Please try again later" (Error code 500).
@@ -191,9 +211,9 @@ The platform supports four distinct user roles:
 
 ---
 
-### 4.2 Feature Set: Buying & Discovery (Search Logic)
+### 4.3 Feature Set: Buying & Discovery (Search Logic)
 
-**4.2.1 The Homepage Experience**
+**4.3.1 The Homepage Experience**
 
 * **A. Hero Slider (Top):**
     * A rotating carousel at the very top.
@@ -204,7 +224,7 @@ The platform supports four distinct user roles:
     * **Visual:** Looks like a Search Bar but acts as a **Button**.
     * **Action:** Tapping it **navigates** the user to the full "Detailed Search Page."
 
-**4.2.2 Detailed Search Page (The Filters)**
+**4.3.2 Detailed Search Page (The Filters)**
 
 * **Primary Filters (Top of Page - In Order):**
     1.  **Make (Marque):** Dropdown (e.g., Renault).
@@ -221,7 +241,7 @@ The platform supports four distinct user roles:
 * **Action:** "Show X Results" button at the bottom (sticky).
 * **Zero Results:** If no cars match, show "No results found".
 
-**4.2.3 Sorting Options**
+**4.3.3 Sorting Options**
 * **Default Sort:** **Newest First** (Date Descending).
 * **Manual Sort Options:** The user can change the order to:
     * Price: Low to High (Les moins chers).
@@ -229,7 +249,7 @@ The platform supports four distinct user roles:
     * Year: Newest to Oldest.
     * Mileage: Low to High.
 
-**4.2.4 Ad Details Screen (Product Page)**
+**4.3.4 Ad Details Screen (Product Page)**
 
 * **A. Media Gallery (Top):**
     * Swipeable carousel of high-res photos (watermarked).
@@ -322,7 +342,7 @@ The platform supports four distinct user roles:
 * **Auth:** SMS OTP verification required for posting ads (+213 phone numbers). Phone verification NOT required for browsing or account creation.
 * **Permissions:** Only `Admin` role can approve Pro dealer accounts.
 * **Data:** User phone numbers visible to all users including guests.
-* **Image Protection:** Auto213 watermark on all uploaded images.
+* **Image Protection:** Auto213 watermark on all uploaded images (Deferred to Phase 2).
 
 ### 6.3 Platform Support
 * **Web:** Chrome, Safari, Firefox, Edge (Last 2 versions).
