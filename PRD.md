@@ -177,7 +177,8 @@ The platform supports four distinct user roles:
 
 **4.2.6 Media Upload & Processing (The "Pro" Standard)**
 
-* **Guided Camera Flow (Mandatory):**
+* **Guided Upload Flow (Mandatory):**
+    * **Source:** Users can upload photos from their **Gallery** or take new ones via **Camera**.
     * The user cannot just upload random photos. They must follow a step-by-step wizard.
     * **Minimum Photos:** 5 required.
     * **Sequence:**
@@ -308,6 +309,10 @@ The platform supports four distinct user roles:
     * Bad photos
     * Phone number doesn't work
     * Other
+
+### 4.5 Feature Set: Localization
+* **Bilingual Support:** The application must provide full bilingual support for **French** and **Arabic**.
+* **Language Selection:** Users should be able to select their preferred language during onboarding and change it later in settings.
 
 ---
 
