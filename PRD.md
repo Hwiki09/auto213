@@ -310,6 +310,12 @@ The platform supports four distinct user roles:
     * Phone number doesn't work
     * Other
 
+**4.4.4 Ad View Tracking**
+* **Action:** The system tracks the number of views on each ad.
+* **Visibility:** Ad publishers can see the view count for their ads.
+* **Purpose:** To allow ad publishers to track the performance of their ads.
+
+
 ### 4.5 Feature Set: Localization
 * **Bilingual Support:** The application must provide full bilingual support for **French** and **Arabic**.
 * **Language Selection:** Users should be able to select their preferred language during onboarding and change it later in settings.
